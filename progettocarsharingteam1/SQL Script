@@ -1,0 +1,59 @@
+CREATE TABLE Noleggio(
+id INT PRIMARY KEY AUTO_INCREMENT,
+DATA DATE,
+ora_inizio TIME,
+ora_fine TIME,
+prezzo DECIMAL(10,2),
+id_veicolo INT,
+id_utente INT,
+FOREIGN KEY (id_veicolo) REFERENCES Macchina(id)
+FOREIGN KEY (id_veicolo) REFERENCES Moto(id)
+FOREIGN KEY (id_veicolo) REFERENCES Monopattino(id)
+FOREIGN KEY (id_veicolo) REFERENCES Bicicletta(id)
+FOREIGN KEY (id_utente) REFERENCES Utente(id)
+);
+
+CREATE TABLE Utente(
+id INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(255),
+cognome VARCHAR(255),
+data_di_nascita DATE,
+email VARCHAR(255) UNIQUE,
+codice_fiscale VARCHAR(255) UNIQUE,
+genere VARCHAR(255),
+indirizzo VARCHAR(255),
+numero_patente VARCHAR(255) UNIQUE,
+is_verificato BOOLEAN
+);
+
+CREATE TABLE Macchina(
+id INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(255),
+modello VARCHAR(255),
+marca VARCHAR(255),
+is_disponibile BOOLEAN,
+dettagli VARCHAR(255)
+);
+
+CREATE TABLE Moto(
+id INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(255),
+modello VARCHAR(255),
+marca VARCHAR(255),
+is_disponibile BOOLEAN,
+dettagli VARCHAR(255)
+);
+
+CREATE TABLE Monopattino(
+id INT PRIMARY KEY AUTO_INCREMENT,
+modello VARCHAR(255),
+is_disponibile BOOLEAN,
+dettagli VARCHAR(255)
+);
+
+CREATE TABLE Bicicletta(
+id INT PRIMARY KEY AUTO_INCREMENT,
+modello VARCHAR(255),
+is_disponibile BOOLEAN,
+dettagli VARCHAR(255)
+);
