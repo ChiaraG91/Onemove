@@ -4,13 +4,13 @@ DATA DATE,
 ora_inizio TIME,
 ora_fine TIME,
 prezzo DECIMAL(10,2),
-id_veicolo INT,
-id_utente INT,
-FOREIGN KEY (id_veicolo) REFERENCES Macchina(id)
+id_veicolo INT,FOREIGN KEY (id_veicolo) REFERENCES Macchina(id)
+id_utente INT,FOREIGN KEY (id_utente) REFERENCES Utente(id)
+
 FOREIGN KEY (id_veicolo) REFERENCES Moto(id)
 FOREIGN KEY (id_veicolo) REFERENCES Monopattino(id)
 FOREIGN KEY (id_veicolo) REFERENCES Bicicletta(id)
-FOREIGN KEY (id_utente) REFERENCES Utente(id)
+
 );
 
 CREATE TABLE Utente(
@@ -56,4 +56,13 @@ id INT PRIMARY KEY AUTO_INCREMENT,
 modello VARCHAR(255),
 is_disponibile BOOLEAN,
 dettagli VARCHAR(255)
+);
+
+CREATE TABLE Recensione(
+id INT PRIMARY KEY AUTO_INCREMENT,
+nome_utente VARCHAR(255),
+testo VARCHAR(255),
+voto INT,
+id_noleggio INT,
+FOREIGN KEY (id_noleggio) REFERENCES Noleggio(id)
 );

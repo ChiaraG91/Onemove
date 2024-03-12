@@ -24,6 +24,11 @@ public class Car {
 
     private String details;
 
+    /*
+    @OneToMany
+    private List<Rent> rentals;
+    */
+
     public Car() {
 
     }

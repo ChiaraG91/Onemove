@@ -3,6 +3,7 @@ package com.team1.progettocarsharingteam1.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -37,6 +38,9 @@ public class User {
 
     @Column(nullable = false)
     private boolean isVerified;
+
+    @OneToMany(mappedBy = "users")
+    private List<Rent> rentals;
 
     public User() {
     }
