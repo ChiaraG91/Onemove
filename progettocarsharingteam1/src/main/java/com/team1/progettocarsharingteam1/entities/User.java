@@ -3,6 +3,7 @@ package com.team1.progettocarsharingteam1.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,7 +40,7 @@ public class User {
     @Column(nullable = false)
     private boolean isVerified;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<Rent> rentals;
 
     public User() {
@@ -56,6 +57,7 @@ public class User {
         this.address = address;
         this.licenseNumber = licenseNumber;
         this.isVerified = isVerified;
+        rentals = new ArrayList<>();
     }
 
     public Long getId() {
@@ -136,5 +138,9 @@ public class User {
 
     public void setVerified(boolean verified) {
         isVerified = verified;
+    }
+
+    public List<Rent> getRentals() {
+        return rentals;
     }
 }

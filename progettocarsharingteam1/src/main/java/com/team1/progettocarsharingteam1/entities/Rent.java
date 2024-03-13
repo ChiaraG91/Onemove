@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 @Entity
 @Table(name = "rentals")
@@ -26,24 +25,22 @@ public class Rent {
     @Column(nullable = false)
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    /* @ManyToOne(fetch = FetchType.LAZY)
-     @JoinColumn(name = "veicolo_id", nullable = false)
-     private Veicolo veicolo;
-     */
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id", nullable = false)
+    private Vehicle vehicle;
 
-    @OneToOne(mappedBy = "rentals")
-    private List<Review> reviewList;
-
-    public Rent(Long id, LocalDate date, LocalTime startTme, LocalTime endTime, Double price) {
+    public Rent(Long id, LocalDate date, LocalTime startTme, LocalTime endTime, Double price, User user, Vehicle vehicle) {
         this.id = id;
         this.date = date;
         this.startTme = startTme;
         this.endTime = endTime;
         this.price = price;
+        this.user = user;
+        this.vehicle = vehicle;
     }
 
     public Rent() {
