@@ -1,29 +1,36 @@
 package com.team1.progettocarsharingteam1.entities;
 
+import com.team1.progettocarsharingteam1.entities.enums.TypeVehicleEnum;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Vehicle {
+public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(nullable = false)
     private String brand;
 
+    @Column(nullable = false)
     private String model;
 
+    @Column(nullable = false)
     private String details;
 
+    @Column(nullable = false)
     private boolean isAvailable;
 
+    @Enumerated
+    private TypeVehicleEnum TypeVehicle;
     @OneToMany(mappedBy = "vehicle")
     private List<Rent> rentals;
 
-    public Vehicle(long id, String brand, String model, String details, boolean isAvailable, List<Rent> rentals) {
+    public Vehicle(long id, TypeVehicleEnum typeVehicle, String brand, String model, String details, boolean isAvailable, List<Rent> rentals) {
         this.id = id;
+        this.TypeVehicle = typeVehicle;
         this.brand = brand;
         this.model = model;
         this.details = details;
@@ -80,5 +87,13 @@ public abstract class Vehicle {
 
     public void setRentals(List<Rent> rentals) {
         this.rentals = rentals;
+    }
+
+    public TypeVehicleEnum getTypeVehicle() {
+        return TypeVehicle;
+    }
+
+    public void setTypeVehicle(TypeVehicleEnum typeVehicle) {
+        TypeVehicle = typeVehicle;
     }
 }
