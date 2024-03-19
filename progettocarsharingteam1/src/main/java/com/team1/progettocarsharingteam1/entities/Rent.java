@@ -2,8 +2,7 @@ package com.team1.progettocarsharingteam1.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "rentals")
@@ -14,13 +13,10 @@ public class Rent {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime startTme;
 
     @Column(nullable = false)
-    private LocalTime startTme;
-
-    @Column(nullable = false)
-    private LocalTime endTime;
+    private LocalDateTime endTime;
 
     @Column(nullable = false)
     private Double price;
@@ -33,9 +29,8 @@ public class Rent {
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 
-    public Rent(Long id, LocalDate date, LocalTime startTme, LocalTime endTime, Double price, User user, Vehicle vehicle) {
+    public Rent(Long id, LocalDateTime startTme, LocalDateTime endTime, Double price, User user, Vehicle vehicle) {
         this.id = id;
-        this.date = date;
         this.startTme = startTme;
         this.endTime = endTime;
         this.price = price;
@@ -54,27 +49,19 @@ public class Rent {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getStartTme() {
+    public LocalDateTime getStartTme() {
         return startTme;
     }
 
-    public void setStartTme(LocalTime startTme) {
+    public void setStartTme(LocalDateTime startTme) {
         this.startTme = startTme;
     }
 
-    public LocalTime getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -84,5 +71,21 @@ public class Rent {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 }

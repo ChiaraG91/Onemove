@@ -1,5 +1,6 @@
 package com.team1.progettocarsharingteam1.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -41,12 +42,13 @@ public class User {
     private boolean isVerified;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Rent> rentals;
 
     public User() {
     }
 
-    public User(Long id, String name, String surname, LocalDate dateOfBirth, String email, String taxId, String sex, String address, String licenseNumber, boolean isVerified) {
+    public User(Long id, String name, String surname, LocalDate dateOfBirth, String email, String taxId, String sex, String address, String licenseNumber, boolean isVerified, List<Rent> rentals) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -57,7 +59,7 @@ public class User {
         this.address = address;
         this.licenseNumber = licenseNumber;
         this.isVerified = isVerified;
-        rentals = new ArrayList<>();
+        this.rentals = rentals;
     }
 
     public Long getId() {

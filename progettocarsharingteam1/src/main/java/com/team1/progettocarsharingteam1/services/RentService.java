@@ -33,7 +33,6 @@ public class RentService {
     public Optional<Rent> updateRent(Long id,Rent rent){
         Optional<Rent> updatedRent = rentRepository.findById(id);
         if (updatedRent.isPresent()){
-            updatedRent.get().setDate(rent.getDate());
             updatedRent.get().setPrice(rent.getPrice());
             updatedRent.get().setStartTme(rent.getStartTme());
             updatedRent.get().setEndTime(rent.getEndTime());

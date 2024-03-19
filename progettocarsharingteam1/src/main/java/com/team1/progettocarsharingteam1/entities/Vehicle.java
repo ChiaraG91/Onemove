@@ -1,5 +1,6 @@
 package com.team1.progettocarsharingteam1.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team1.progettocarsharingteam1.entities.enums.TypeVehicleEnum;
 import jakarta.persistence.*;
 
@@ -26,6 +27,7 @@ public class Vehicle {
     @Enumerated
     private TypeVehicleEnum TypeVehicle;
     @OneToMany(mappedBy = "vehicle")
+    @JsonIgnore
     private List<Rent> rentals;
 
     public Vehicle(long id, TypeVehicleEnum typeVehicle, String brand, String model, String details, boolean isAvailable, List<Rent> rentals) {
