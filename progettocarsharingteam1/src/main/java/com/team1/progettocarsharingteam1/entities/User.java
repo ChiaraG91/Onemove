@@ -40,9 +40,8 @@ public class User {
 
     @Column(nullable = false)
     private boolean isVerified;
-
-    @OneToMany(mappedBy = "user")
     @JsonIgnore
+    @OneToMany(mappedBy = "user")
     private List<Rent> rentals;
 
     public User() {

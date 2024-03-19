@@ -38,18 +38,18 @@ public class RentController {
     public ResponseEntity<Rent> updateRentById(@RequestBody Rent rent, @PathVariable Long id) {
         Optional<Rent> updatedRentOPT = rentService.updateRent(id, rent);
         if (updatedRentOPT.isPresent()) {
-            return ResponseEntity.notFound().build();
+            return  ResponseEntity.ok().body(updatedRentOPT.get());
         }
-        return ResponseEntity.ok().body(rent);
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/delete-rent")
     public ResponseEntity<Optional<Rent>> deleteRentById(@RequestParam Long id) {
         Optional<Rent> deletedRentOPT = rentService.deleteRentById(id);
         if (deletedRentOPT.isPresent()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok().body(deletedRentOPT);
         }
-        return ResponseEntity.ok().body(deletedRentOPT);
+        return ResponseEntity.notFound().build();
 
     }
 
