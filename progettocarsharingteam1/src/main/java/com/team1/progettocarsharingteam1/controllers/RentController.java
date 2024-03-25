@@ -16,36 +16,36 @@ public class RentController {
     @Autowired
     private RentService rentService;
 
-    @PostMapping("/add-rent")
-    public ResponseEntity<Rent> addRent(@RequestBody Rent rent) {
-        Rent rent1 = rentService.createRent(rent);
+    @PostMapping("/create")
+    public ResponseEntity<Rent> create(@RequestBody Rent rent) {
+        Rent rent1 = rentService.create(rent);
         return ResponseEntity.ok().body(rent1);
     }
 
-    @GetMapping("/get-list")
-    public ResponseEntity<List<Rent>> getAllRentals() {
-        List<Rent> allRentals = rentService.viewAllRentals();
+    @GetMapping("/all")
+    public ResponseEntity<List<Rent>> findAll() {
+        List<Rent> allRentals = rentService.findAll();
         return ResponseEntity.ok().body(allRentals);
     }
 
-    @GetMapping("/get-rent/{id}")
-    public ResponseEntity<Optional<Rent>> getRent(@PathVariable Long id) {
-        Optional<Rent> rentOPT = rentService.viewRent(id);
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Optional<Rent>> findById(@PathVariable Long id) {
+        Optional<Rent> rentOPT = rentService.findById(id);
         return ResponseEntity.ok().body(rentOPT);
     }
 
-    @PutMapping("/update-rent/{id}")
-    public ResponseEntity<Rent> updateRentById(@RequestBody Rent rent, @PathVariable Long id) {
-        Optional<Rent> updatedRentOPT = rentService.updateRent(id, rent);
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Rent> edit(@PathVariable Long id, @RequestBody Rent rent) {
+        Optional<Rent> updatedRentOPT = rentService.edit(id, rent);
         if (updatedRentOPT.isPresent()) {
-            return  ResponseEntity.ok().body(updatedRentOPT.get());
+            return ResponseEntity.ok().body(updatedRentOPT.get());
         }
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/delete-rent")
-    public ResponseEntity<Optional<Rent>> deleteRentById(@RequestParam Long id) {
-        Optional<Rent> deletedRentOPT = rentService.deleteRentById(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Optional<Rent>> delete(@RequestParam Long id) {
+        Optional<Rent> deletedRentOPT = rentService.delete(id);
         if (deletedRentOPT.isPresent()) {
             return ResponseEntity.ok().body(deletedRentOPT);
         }

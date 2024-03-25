@@ -41,9 +41,9 @@ public class VehicleController {
         }
     }
 
-    @PutMapping("/modify/{id}")
-    public ResponseEntity<Vehicle> modify(@PathVariable Long id, @RequestBody Vehicle vehicle) {
-        Optional<Vehicle> vehicleOpt = vehicleService.modify(id, vehicle);
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Vehicle> edit(@PathVariable Long id, @RequestBody Vehicle vehicle) {
+        Optional<Vehicle> vehicleOpt = vehicleService.edit(id, vehicle);
         if (vehicleOpt.isPresent()) {
             return ResponseEntity.ok(vehicleOpt.get());
         } else {

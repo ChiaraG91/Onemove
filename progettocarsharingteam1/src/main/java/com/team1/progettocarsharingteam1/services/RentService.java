@@ -14,23 +14,23 @@ public class RentService {
     @Autowired
     private RentRepository rentRepository;
 
-    public Rent createRent(Rent rent){
+    public Rent create(Rent rent){
         Rent newRent = rentRepository.save(rent);
         return newRent;
     }
 
 
-    public List<Rent> viewAllRentals() {
+    public List<Rent> findAll() {
         List<Rent> rentList = rentRepository.findAll();
         return rentList;
     }
 
-    public Optional<Rent> viewRent(Long id) {
+    public Optional<Rent> findById(Long id) {
         Optional<Rent> rentOPT = rentRepository.findById(id);
         return rentOPT;
     }
 
-    public Optional<Rent> updateRent(Long id,Rent rent){
+    public Optional<Rent> edit(Long id, Rent rent){
         Optional<Rent> updatedRent = rentRepository.findById(id);
         if (updatedRent.isPresent()){
             updatedRent.get().setPrice(rent.getPrice());
@@ -43,7 +43,7 @@ public class RentService {
         return updatedRent;
     }
 
-    public Optional<Rent> deleteRentById(Long id){
+    public Optional<Rent> delete(Long id){
         Optional<Rent> deletedRentOPT = rentRepository.findById(id);
         if(deletedRentOPT.isPresent()){
             rentRepository.delete(deletedRentOPT.get());

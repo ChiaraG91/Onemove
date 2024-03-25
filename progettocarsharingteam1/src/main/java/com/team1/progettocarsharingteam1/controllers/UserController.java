@@ -1,6 +1,5 @@
 package com.team1.progettocarsharingteam1.controllers;
 
-import com.team1.progettocarsharingteam1.entities.Rent;
 import com.team1.progettocarsharingteam1.entities.User;
 import com.team1.progettocarsharingteam1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +15,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add")
-    public ResponseEntity<User> addRent(@RequestBody User user){
+    @PostMapping("/create")
+    public ResponseEntity<User> create(@RequestBody User user) {
         User user1 = userService.create(user);
         return ResponseEntity.ok().body(user1);
     }
 
-    @GetMapping("/getall")
-    public ResponseEntity<List<User>> getAllRentals(){
-        List<User> userList = userService.getAll();
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> findAll() {
+        List<User> userList = userService.findAll();
         return ResponseEntity.ok().body(userList);
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<User> get(@PathVariable Long id) {
-        Optional<User> optionalUser = userService.getById(id);
+    @GetMapping("/find/{id}")
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        Optional<User> optionalUser = userService.findById(id);
         if (optionalUser.isPresent()) {
             return ResponseEntity.ok(optionalUser.get());
         } else {
@@ -38,9 +37,9 @@ public class UserController {
         }
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<User> update(@RequestBody User user, @PathVariable Long id) {
-        Optional<User> userOptional = userService.update(id, user);
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<User> edit(@RequestBody User user, @PathVariable Long id) {
+        Optional<User> userOptional = userService.edit(id, user);
         if (userOptional.isPresent()) {
             return ResponseEntity.ok(userOptional.get());
         } else {
@@ -50,7 +49,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     ResponseEntity<User> delete(@PathVariable Long id) {
-        Optional<User> userOptional = userService.deleteById(id);
+        Optional<User> userOptional = userService.delete(id);
         if (userOptional.isPresent()) {
             return ResponseEntity.ok(userOptional.get());
         } else {

@@ -26,7 +26,7 @@ public class VehicleService {
         return vehicleRepository.findById(id);
     }
 
-    public Optional<Vehicle> modify(Long id, Vehicle vehicle) {
+    public Optional<Vehicle> edit(Long id, Vehicle vehicle) {
         Optional<Vehicle> vehicleOpt = vehicleRepository.findById(id);
         if (vehicleOpt.isPresent()) {
             vehicleOpt.get().setBrand(vehicle.getBrand());
@@ -36,7 +36,7 @@ public class VehicleService {
             vehicleOpt.get().setTypeVehicle(vehicle.getTypeVehicle());
             vehicleRepository.save(vehicleOpt.get());
         } else {
-            Optional.empty();
+            return Optional.empty();
         }
         return vehicleOpt;
     }

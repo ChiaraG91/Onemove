@@ -14,47 +14,46 @@ public class ReviewService {
     @Autowired
     ReviewRepository reviewRepository;
 
-    public Review addReview(Review review) {
+    public Review create(Review review) {
         Review reviewNuova = reviewRepository.save(review);
         return reviewNuova;
     }
 
-    public List<Review> findAllReviews() {
+    public List<Review> findAll() {
         return reviewRepository.findAll();
     }
 
-    public Optional<Review> findReviewById(Long id) {
+    public Optional<Review> findById(Long id) {
         Optional<Review> reviewOpt = reviewRepository.findById(id);
-
-        if(reviewOpt.isPresent()) {
+        if (reviewOpt.isPresent()) {
             return reviewOpt;
+        } else {
+            return Optional.empty();
         }
-        return Optional.empty();
     }
 
-    public Optional<Review> updateReview(Long id, Review review) {
+    public Optional<Review> edit(Long id, Review review) {
         Optional<Review> reviewOpt = reviewRepository.findById(id);
-
-        if(reviewOpt.isPresent()) {
+        if (reviewOpt.isPresent()) {
             reviewOpt.get().setName(review.getName());
             reviewOpt.get().setDescrizione(review.getDescrizione());
             reviewOpt.get().setVoto(review.getVoto());
             reviewOpt.get().setRent(review.getRent());
-
             Review reviewUpdated = reviewRepository.save(reviewOpt.get());
             return Optional.of(reviewUpdated);
+        } else {
+            return Optional.empty();
         }
-        return Optional.empty();
     }
 
-    public Optional<Review> deleteReview(Long id) {
+    public Optional<Review> delete(Long id) {
         Optional<Review> reviewOpt = reviewRepository.findById(id);
-
-        if(reviewOpt.isPresent()) {
+        if (reviewOpt.isPresent()) {
             reviewRepository.deleteById(id);
             return reviewOpt;
+        } else {
+            return Optional.empty();
         }
-        return Optional.empty();
     }
 
 }

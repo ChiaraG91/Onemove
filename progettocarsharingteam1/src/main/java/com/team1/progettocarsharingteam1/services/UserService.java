@@ -1,6 +1,5 @@
 package com.team1.progettocarsharingteam1.services;
 
-import com.team1.progettocarsharingteam1.entities.Rent;
 import com.team1.progettocarsharingteam1.entities.User;
 import com.team1.progettocarsharingteam1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +13,22 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User create(User user){
+    public User create(User user) {
         return userRepository.save(user);
     }
 
 
-    public List<User> getAll() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public Optional<User> getById(Long id) {
+    public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
-    public Optional<User> update(Long id,User user){
+    public Optional<User> edit(Long id, User user) {
         Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent()){
+        if (optionalUser.isPresent()) {
             optionalUser.get().setName(user.getName());
             optionalUser.get().setAddress(user.getAddress());
             optionalUser.get().setEmail(user.getEmail());
@@ -46,12 +45,12 @@ public class UserService {
         return optionalUser;
     }
 
-    public Optional<User> deleteById(Long id){
+    public Optional<User> delete(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        if(optionalUser.isPresent()){
+        if (optionalUser.isPresent()) {
             userRepository.delete(optionalUser.get());
             return optionalUser;
-        }else{
+        } else {
             return Optional.empty();
         }
     }

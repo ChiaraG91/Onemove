@@ -17,7 +17,7 @@ public class Review {
     private String descrizione;
 
     @Column(nullable = false)
-    private Integer voto; //enum?
+    private Integer voto;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rent_id", nullable = false)

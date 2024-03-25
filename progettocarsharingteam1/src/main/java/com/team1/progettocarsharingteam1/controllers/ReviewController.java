@@ -16,46 +16,46 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
-    @PostMapping("/add")
-    public ResponseEntity<Review> addReview(@RequestBody Review review) {
-        Review reviewNuova = reviewService.addReview(review);
+    @PostMapping("/create")
+    public ResponseEntity<Review> create(@RequestBody Review review) {
+        Review reviewNuova = reviewService.create(review);
         return ResponseEntity.ok().body(reviewNuova);
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Review> findReviewById(@PathVariable Long id) {
-        Optional<Review> reviewOpt = reviewService.findReviewById(id);
-
-        if(reviewOpt.isPresent()) {
-            return ResponseEntity.ok().body(reviewOpt.get());
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @GetMapping("/get-all")
-    public ResponseEntity<List<Review>> findAllReviews() {
-        List<Review> reviews = reviewService.findAllReviews();
+    @GetMapping("/all")
+    public ResponseEntity<List<Review>> findAll() {
+        List<Review> reviews = reviewService.findAll();
         return ResponseEntity.ok().body(reviews);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
-        Optional<Review> reviewOpt = reviewService.updateReview(id, review);
-
-        if(reviewOpt.isPresent()) {
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Review> findById(@PathVariable Long id) {
+        Optional<Review> reviewOpt = reviewService.findById(id);
+        if (reviewOpt.isPresent()) {
             return ResponseEntity.ok().body(reviewOpt.get());
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Review> edit(@PathVariable Long id, @RequestBody Review review) {
+        Optional<Review> reviewOpt = reviewService.edit(id, review);
+        if (reviewOpt.isPresent()) {
+            return ResponseEntity.ok().body(reviewOpt.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Review> deleteReview(@PathVariable Long id) {
-        Optional<Review> reviewOpt = reviewService.deleteReview(id);
-
-        if(reviewOpt.isPresent()){
+    public ResponseEntity<Review> delete(@PathVariable Long id) {
+        Optional<Review> reviewOpt = reviewService.delete(id);
+        if (reviewOpt.isPresent()) {
             return ResponseEntity.ok().body(reviewOpt.get());
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
 }
