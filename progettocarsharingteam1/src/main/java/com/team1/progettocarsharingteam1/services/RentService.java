@@ -3,9 +3,12 @@ package com.team1.progettocarsharingteam1.services;
 import com.team1.progettocarsharingteam1.entities.Rent;
 import com.team1.progettocarsharingteam1.entities.User;
 import com.team1.progettocarsharingteam1.entities.Vehicle;
+import com.team1.progettocarsharingteam1.entities.enums.ChargeEnum;
+import com.team1.progettocarsharingteam1.entities.enums.TypeVehicleEnum;
 import com.team1.progettocarsharingteam1.repositories.RentRepository;
 import com.team1.progettocarsharingteam1.repositories.UserRepository;
 import com.team1.progettocarsharingteam1.repositories.VehicleRepository;
+import jakarta.persistence.Enumerated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -103,6 +106,18 @@ public class RentService {
             return Optional.empty();
         }
     }
+
+
+    public double RentalPriceCalculator(ChargeEnum chargeEnum, Integer rentalTime) {
+        double hourlyPrice = switch (chargeEnum) {
+            case SHORT -> 6.0;
+            case MEDIUM -> 5.5;
+            case LONG -> 5.0;
+        };
+
+        return hourlyPrice * rentalTime;
+    }
+
 
 }
 

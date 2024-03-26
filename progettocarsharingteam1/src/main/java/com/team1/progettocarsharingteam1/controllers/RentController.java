@@ -1,6 +1,7 @@
 package com.team1.progettocarsharingteam1.controllers;
 
 import com.team1.progettocarsharingteam1.entities.Rent;
+import com.team1.progettocarsharingteam1.entities.enums.ChargeEnum;
 import com.team1.progettocarsharingteam1.services.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -71,6 +72,15 @@ public class RentController {
             return ResponseEntity.ok().body(endRentOpt.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/calculate")
+    public ResponseEntity<Double> RentalPrice(
+            @RequestParam("charge") ChargeEnum chargeEnum,
+            @RequestParam("rentalTime") Integer rentalTime) {
+
+        double rentalPrice = rentService.RentalPriceCalculator(chargeEnum,rentalTime);
+        return ResponseEntity.ok(rentalPrice);
     }
 
 }

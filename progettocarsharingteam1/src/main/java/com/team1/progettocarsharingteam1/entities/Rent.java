@@ -1,5 +1,6 @@
 package com.team1.progettocarsharingteam1.entities;
 
+import com.team1.progettocarsharingteam1.entities.enums.ChargeEnum;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,11 +16,14 @@ public class Rent {
     @Column(nullable = false)
     private LocalDateTime startTme;
 
-    @Column()
+    @Column(nullable = false)
     private LocalDateTime endTime;
 
     @Column(nullable = false)
     private Double price;
+
+    @Enumerated
+    private ChargeEnum chargeEnum;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -29,11 +33,12 @@ public class Rent {
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 
-    public Rent(Long id, LocalDateTime startTme, LocalDateTime endTime, Double price, User user, Vehicle vehicle) {
+    public Rent(Long id, LocalDateTime startTme, LocalDateTime endTime, Double price, ChargeEnum chargeEnum, User user, Vehicle vehicle) {
         this.id = id;
         this.startTme = startTme;
         this.endTime = endTime;
         this.price = price;
+        this.chargeEnum = chargeEnum;
         this.user = user;
         this.vehicle = vehicle;
     }
@@ -71,6 +76,14 @@ public class Rent {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public ChargeEnum getChargeEnum() {
+        return chargeEnum;
+    }
+
+    public void setChargeEnum(ChargeEnum chargeEnum) {
+        this.chargeEnum = chargeEnum;
     }
 
     public User getUser() {
