@@ -25,6 +25,9 @@ public class RentService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @Autowired
+    private VehicleService vehicleService;
+
     public Rent create(Rent rent){
         Rent newRent = rentRepository.save(rent);
         return newRent;
@@ -75,17 +78,24 @@ public class RentService {
             newRent.setPrice(10.0);
             newRent.setVehicle(vehicleOpt.get());
 
+            vehicleOpt.get().setAvailable(false);
+            vehicleRepository.save(vehicleOpt.get());
+
             Rent savedRent = rentRepository.save(newRent);
             return savedRent;
         }
         return null;
     }
 
-    public Optional<Rent> endRent(Long id) {
-        Optional<Rent> rentOpt = rentRepository.findById(id);
+    public Optional<Rent> endRent(Long userId, Long vehicleId) {
+        Optional<Rent> rentOpt = rentRepository.findById(userId);
+        Optional<Vehicle> vehicleOpt = vehicleRepository.findById(vehicleId);
 
-        if (rentOpt.isPresent()) {
+        if (rentOpt.isPresent() && vehicleOpt.isPresent()) {
             rentOpt.get().setEndTime(LocalDateTime.now());
+
+            vehicleOpt.get().setAvailable(true);
+            vehicleRepository.save(vehicleOpt.get());
 
             Rent endRent = rentRepository.save(rentOpt.get());
             return Optional.of(endRent);
@@ -93,7 +103,6 @@ public class RentService {
             return Optional.empty();
         }
     }
-
 
 }
 

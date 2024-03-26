@@ -63,9 +63,9 @@ public class RentController {
         return ResponseEntity.ok().body(newRent);
     }
 
-    @PutMapping("/end/{id}")
-    public ResponseEntity<Rent> endRent(@PathVariable Long id) {
-        Optional<Rent> endRentOpt = rentService.endRent(id);
+    @PutMapping("/end/{userId}/{vehicleId}")
+    public ResponseEntity<Rent> endRent(@PathVariable Long userId, @PathVariable Long vehicleId) {
+        Optional<Rent> endRentOpt = rentService.endRent(userId, vehicleId);
 
         if (endRentOpt.isPresent()) {
             return ResponseEntity.ok().body(endRentOpt.get());
