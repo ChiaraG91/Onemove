@@ -15,7 +15,7 @@ public class Rent {
     @Column(nullable = false)
     private LocalDateTime startTme;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDateTime endTime;
 
     @Column(nullable = false)

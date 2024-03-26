@@ -1,10 +1,15 @@
 package com.team1.progettocarsharingteam1.services;
 
 import com.team1.progettocarsharingteam1.entities.Rent;
+import com.team1.progettocarsharingteam1.entities.User;
+import com.team1.progettocarsharingteam1.entities.Vehicle;
 import com.team1.progettocarsharingteam1.repositories.RentRepository;
+import com.team1.progettocarsharingteam1.repositories.UserRepository;
+import com.team1.progettocarsharingteam1.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +18,12 @@ public class RentService {
 
     @Autowired
     private RentRepository rentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
     public Rent create(Rent rent){
         Rent newRent = rentRepository.save(rent);
@@ -52,6 +63,37 @@ public class RentService {
             return Optional.empty();
         }
     }
+
+    public Rent startRent(Long userId, Long vehicleId) {
+        Rent newRent = new Rent();
+        Optional<User> userOpt = userRepository.findById(userId);
+        Optional<Vehicle> vehicleOpt = vehicleRepository.findById(vehicleId);
+
+        if(userOpt.isPresent() && vehicleOpt.isPresent()) {
+            newRent.setStartTme(LocalDateTime.now());
+            newRent.setUser(userOpt.get());
+            newRent.setPrice(10.0);
+            newRent.setVehicle(vehicleOpt.get());
+
+            Rent savedRent = rentRepository.save(newRent);
+            return savedRent;
+        }
+        return null;
+    }
+
+    public Optional<Rent> endRent(Long id) {
+        Optional<Rent> rentOpt = rentRepository.findById(id);
+
+        if (rentOpt.isPresent()) {
+            rentOpt.get().setEndTime(LocalDateTime.now());
+
+            Rent endRent = rentRepository.save(rentOpt.get());
+            return Optional.of(endRent);
+        } else {
+            return Optional.empty();
+        }
+    }
+
 
 }
 

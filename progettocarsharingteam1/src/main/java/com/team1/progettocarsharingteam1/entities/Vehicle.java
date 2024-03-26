@@ -10,7 +10,7 @@ import java.util.List;
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String brand;
