@@ -117,7 +117,5 @@ public class RentService {
 
         return hourlyPrice * rentalTime;
     }
-
-
 }
 

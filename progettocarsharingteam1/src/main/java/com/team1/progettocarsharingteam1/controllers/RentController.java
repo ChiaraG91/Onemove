@@ -82,5 +82,4 @@ public class RentController {
         double rentalPrice = rentService.RentalPriceCalculator(chargeEnum,rentalTime);
         return ResponseEntity.ok(rentalPrice);
     }
-
 }

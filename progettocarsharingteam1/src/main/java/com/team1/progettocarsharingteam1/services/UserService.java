@@ -1,5 +1,6 @@
 package com.team1.progettocarsharingteam1.services;
 
+import com.team1.progettocarsharingteam1.entities.Rent;
 import com.team1.progettocarsharingteam1.entities.User;
 import com.team1.progettocarsharingteam1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +56,12 @@ public class UserService {
         }
     }
 
+    public Optional<List<Rent>> rentByid(Long id) {
+        List<Rent> optionalRents = userRepository.findAllOrdiniByUserId(id);
+        if (optionalRents.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(optionalRents);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.team1.progettocarsharingteam1.controllers;
 
+import com.team1.progettocarsharingteam1.entities.Rent;
 import com.team1.progettocarsharingteam1.entities.User;
 import com.team1.progettocarsharingteam1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,16 @@ public class UserController {
         Optional<User> userOptional = userService.delete(id);
         if (userOptional.isPresent()) {
             return ResponseEntity.ok(userOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("rents/{id}")
+    ResponseEntity<List<Rent>> rentById(@PathVariable Long id) {
+        Optional<List<Rent>> optionalRents = userService.rentByid(id);
+        if (optionalRents.isPresent()) {
+            return ResponseEntity.ok(optionalRents.get());
         } else {
             return ResponseEntity.notFound().build();
         }
